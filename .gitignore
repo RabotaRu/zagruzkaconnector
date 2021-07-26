@@ -1,0 +1,9 @@
+vendor
+composer.lock
+.idea
+.composer
+.phpcs-cache
+.phpunit.result.cache
+
+test.php
+docker-compose.yml

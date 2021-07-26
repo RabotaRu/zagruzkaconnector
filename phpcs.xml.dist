@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
+
+    <arg name="basepath" value="."/>
+    <arg name="cache" value=".phpcs-cache"/>
+    <arg name="colors"/>
+    <arg name="extensions" value="php"/>
+    <arg name="ignore-annotations"/>
+    <arg name="report" value="summary"/>
+    <arg name="exclude" value="Generic.Files.LineLength"/>
+    <arg name="error-severity" value="1"/>
+    <arg name="warning-severity" value="1"/>
+    <arg name="tab-width" value="4"/>
+    <arg value="p"/><!-- -p - progress   -->
+
+    <!-- Don't hide tokenizer exceptions -->
+    <rule ref="Internal.Tokenizer.Exception">
+        <type>error</type>
+    </rule>
+
+    <rule ref="PSR1"/>
+    <rule ref="PSR2">
+        <exclude name="PSR2.ControlStructures.ControlStructureSpacing.SpacingAfterOpenBrace"/>
+    </rule>
+
+    <rule ref="PSR12">
+        <exclude name="PSR12.Files.FileHeader"/>
+    </rule>
+
+    <rule ref="Generic.ControlStructures.InlineControlStructure"/>
+
+    <file>src/</file>
+
+</ruleset>
