@@ -63,7 +63,7 @@ class ZagruzkaConnector implements IRestConnector
             $this->metrics->observeDuration($stopwatch, $response->getStatusCode(), self::METRIC_REQUEST_DURATION_NAME);
             $this->metrics->addResponseCounter(
                 $response->getStatusCode(),
-                self::METRIC_REQUEST_COUNT_NAME_PREFIX . $request->getMessage()->getType()->getType(),
+                self::METRIC_REQUEST_COUNT_NAME_PREFIX . $request->getMessage()->getType()->getType()
             );
         }
         if (null !== $postSend) {
