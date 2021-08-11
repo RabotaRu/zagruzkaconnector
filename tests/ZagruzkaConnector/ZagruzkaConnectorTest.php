@@ -7,24 +7,22 @@ namespace RabotaRu\ZagruzkaConnector\tests;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
+use RabotaRu\ZagruzkaConnector\Enums\MessageType;
 use RabotaRu\ZagruzkaConnector\HooksInterfaces\RestPostSendHook;
 use RabotaRu\ZagruzkaConnector\HooksInterfaces\RestPreSendHook;
-use RabotaRu\ZagruzkaConnector\Metrics\IMetric;
 use RabotaRu\ZagruzkaConnector\Metrics\IStopwatch;
 use RabotaRu\ZagruzkaConnector\Metrics\PrometheusMetrics;
 use RabotaRu\ZagruzkaConnector\RestRequest\Request;
 use RabotaRu\ZagruzkaConnector\RestRequest\RequestMessage;
 use RabotaRu\ZagruzkaConnector\RestRequest\RequestMessageData;
-use RabotaRu\ZagruzkaConnector\RestRequest\RequestMessageType;
 use RabotaRu\ZagruzkaConnector\Transport\HttpTransportRest;
-use RabotaRu\ZagruzkaConnector\Transport\ITransportRest;
 use RabotaRu\ZagruzkaConnector\ZagruzkaConnector;
 
 class ZagruzkaConnectorTest extends TestCase
 {
     public const URL = "https://zagruzka.com";
-    private ITransportRest $mockTransport;
-    private IMetric $mockMetricks;
+    private $mockTransport;
+    private $mockMetricks;
 
     public function setUp(): void
     {
@@ -40,7 +38,7 @@ class ZagruzkaConnectorTest extends TestCase
             "password",
             "+79261234567",
             new RequestMessage(
-                new RequestMessageType(),
+                new MessageType(),
                 new RequestMessageData(
                     "test",
                     "fromTest"

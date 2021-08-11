@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 namespace RabotaRu\ZagruzkaConnector\RestRequest;
 
+use RabotaRu\ZagruzkaConnector\Enums\MessageType;
+
 final class RequestMessage implements \JsonSerializable
 {
     /**
-     * @var RequestMessageType
+     * @var MessageType
      */
     private $type;
     /**
@@ -14,26 +16,26 @@ final class RequestMessage implements \JsonSerializable
      */
     private $data;
 
-    public function __construct(RequestMessageType $type, RequestMessageData $data)
+    public function __construct(MessageType $type, RequestMessageData $data)
     {
         $this->type = $type;
         $this->data = $data;
     }
 
     /**
-     * @return RequestMessageType
+     * @return MessageType
      */
-    public function getType(): RequestMessageType
+    public function getType(): MessageType
     {
         return $this->type;
     }
 
     /**
-     * @param RequestMessageType $type
+     * @param MessageType $type
      *
      * @return RequestMessage
      */
-    public function setType(RequestMessageType $type): RequestMessage
+    public function setType(MessageType $type): RequestMessage
     {
         $this->type = $type;
         return $this;
