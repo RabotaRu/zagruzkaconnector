@@ -57,7 +57,7 @@ class ZagruzkaConnector implements IRestConnector
             $stopwatch = $this->metrics->startTimer();
         }
         
-        $response = $this->transport->send($this->url, (string)json_encode($request, JSON_THROW_ON_ERROR));
+        $response = $this->transport->send($this->url, \GuzzleHttp\json_encode($request));
         if (null !== $this->metrics) {
             /** @phpstan-ignore-next-line */
             $this->metrics->observeDuration($stopwatch, $response->getStatusCode(), self::METRIC_REQUEST_DURATION_NAME);
