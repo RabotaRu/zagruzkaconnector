@@ -52,7 +52,11 @@ class HttpTransportRest implements ITransportRest
                 ]
             );
         } catch (ClientException $e) {
-            return $e->getResponse();
+            $r = $e->getResponse();
+            if (null != $r) {
+                return $r;
+            }
+            throw $e;
         }
     }
 
