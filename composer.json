@@ -13,9 +13,9 @@
     }
   ],
   "require": {
-    "php": ">=7.4",
+    "php": ">=7.2",
     "ext-json": "*",
-    "guzzlehttp/guzzle": "^7.3",
+    "guzzlehttp/guzzle": "6.5.*",
     "promphp/prometheus_client_php": "^2.1",
     "ramsey/uuid": "^4.1"
   },

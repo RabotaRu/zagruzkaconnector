@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace RabotaRu\ZagruzkaConnector\Transport;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
@@ -38,17 +39,21 @@ class HttpTransportRest implements ITransportRest
      */
     public function send(string $url, string $body): ResponseInterface
     {
-        return $this->httpClient->post(
-            $url,
-            [
-                RequestOptions::BODY => $body,
-                RequestOptions::HEADERS => [
-                    'ContentType' => 'application/json',
-                ],
-                RequestOptions::TIMEOUT => $this->timeout,
-                RequestOptions::CONNECT_TIMEOUT => $this->connectTimeout
-            ]
-        );
+        try {
+            return $this->httpClient->post(
+                $url,
+                [
+                    RequestOptions::BODY => $body,
+                    RequestOptions::HEADERS => [
+                        'ContentType' => 'application/json',
+                    ],
+                    RequestOptions::TIMEOUT => $this->timeout,
+                    RequestOptions::CONNECT_TIMEOUT => $this->connectTimeout
+                ]
+            );
+        } catch (ClientException $e) {
+            return $e->getResponse();
+        }
     }
 
     /**
