@@ -17,13 +17,18 @@ class SMSSender
     /**
      * @var IRestConnector
      */
-    private IRestConnector $connector;
-    private string $login;
-    private string $password;
-    private string $serviceName;
+    private $connector;
+    /** @var string  */
+    private $login;
+    /** @var string  */
+    private $password;
+    /** @var string  */
+    private $serviceName;
 
-    private ?RestPreSendHook $preSendHook = null;
-    private ?RestPostSendHook $postSendHook = null;
+    /** @var \RabotaRu\ZagruzkaConnector\HooksInterfaces\RestPreSendHook|null  */
+    private $preSendHook = null;
+    /** @var \RabotaRu\ZagruzkaConnector\HooksInterfaces\RestPostSendHook|null  */
+    private $postSendHook = null;
 
     public function __construct(
         IRestConnector $connector,

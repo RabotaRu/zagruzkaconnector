@@ -17,7 +17,7 @@ final class RequestMessageType implements \JsonSerializable
     /**
      * @var string
      */
-    private string $type;
+    private $type;
 
     /**
      * RequestMessageType constructor.

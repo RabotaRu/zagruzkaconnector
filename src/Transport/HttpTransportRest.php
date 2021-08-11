@@ -15,15 +15,15 @@ class HttpTransportRest implements ITransportRest
     /**
      * @var float
      */
-    private float $timeout = 0.800;
+    private $timeout = 0.800;
     /**
      * @var float
      */
-    private float $connectTimeout = 0.100;
+    private $connectTimeout = 0.100;
     /**
      * @var Client
      */
-    private Client $httpClient;
+    private $httpClient;
 
     public function __construct()
     {

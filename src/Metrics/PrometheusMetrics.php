@@ -12,11 +12,11 @@ class PrometheusMetrics implements IMetric
     /**
      * @var \Prometheus\CollectorRegistry
      */
-    private CollectorRegistry $registry;
+    private $registry;
     /**
      * @var string
      */
-    private string $namespace;
+    private $namespace;
 
     public function __construct(
         string $namespace,

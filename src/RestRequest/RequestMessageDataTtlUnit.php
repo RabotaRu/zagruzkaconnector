@@ -14,7 +14,7 @@ final class RequestMessageDataTtlUnit implements \JsonSerializable
     /**
      * @var string
      */
-    private string $ttlUint;
+    private $ttlUint;
 
     /**
      * RequestMessageDataTtlUnit constructor.

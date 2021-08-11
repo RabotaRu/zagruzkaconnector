@@ -5,12 +5,18 @@ namespace RabotaRu\ZagruzkaConnector\RestRequest;
 
 final class RequestMessageData implements \JsonSerializable
 {
-    private string $text;
-    private string $serviceNumber;
-    private ?string $externalUserId = null;
-    private bool $flash = false;
-    private int $ttl = 0;
-    private RequestMessageDataTtlUnit $ttlUnit;
+    /** @var string  */
+    private $text;
+    /** @var string  */
+    private $serviceNumber;
+    /** @var string|null  */
+    private $externalUserId = null;
+    /** @var bool  */
+    private $flash = false;
+    /** @var int  */
+    private $ttl = 0;
+    /** @var \RabotaRu\ZagruzkaConnector\RestRequest\RequestMessageDataTtlUnit  */
+    private $ttlUnit;
 
     public function __construct(string $text, string $serviceNumber)
     {

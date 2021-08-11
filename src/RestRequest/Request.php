@@ -5,16 +5,24 @@ namespace RabotaRu\ZagruzkaConnector\RestRequest;
 
 final class Request implements \JsonSerializable
 {
-    private string $id;
-    private string $login;
-    private string $password;
-    private string $destAddr;
+    /** @var string  */
+    private $id;
+    /** @var string  */
+    private $login;
+    /** @var string  */
+    private $password;
+    /** @var string  */
+    private $destAddr;
 
-    private bool $useTimeDiff = false;
-    private ?bool $shortenLinks = null;
-    private RequestRegisteredDelivery $delivery;
+    /** @var bool  */
+    private $useTimeDiff = false;
+    /** @var bool|null  */
+    private $shortenLinks = null;
+    /** @var \RabotaRu\ZagruzkaConnector\RestRequest\RequestRegisteredDelivery  */
+    private $delivery;
 
-    private RequestMessage $message;
+    /** @var \RabotaRu\ZagruzkaConnector\RestRequest\RequestMessage  */
+    private $message;
 
     public function __construct(
         string $id,

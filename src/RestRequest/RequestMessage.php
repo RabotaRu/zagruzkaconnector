@@ -8,11 +8,11 @@ final class RequestMessage implements \JsonSerializable
     /**
      * @var RequestMessageType
      */
-    private RequestMessageType $type;
+    private $type;
     /**
      * @var RequestMessageData
      */
-    private RequestMessageData $data;
+    private $data;
 
     public function __construct(RequestMessageType $type, RequestMessageData $data)
     {

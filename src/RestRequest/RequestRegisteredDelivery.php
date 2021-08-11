@@ -14,7 +14,7 @@ final class RequestRegisteredDelivery implements \JsonSerializable
     /**
      * @var int
      */
-    private int $val;
+    private $val;
 
     public function __construct(int $val = self::ENABLED)
     {

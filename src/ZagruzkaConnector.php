@@ -18,15 +18,15 @@ class ZagruzkaConnector implements IRestConnector
     /**
      * @var ITransportRest
      */
-    private ITransportRest $transport;
+    private $transport;
     /**
      * @var string
      */
-    private string $url;
+    private $url;
     /**
      * @var IMetric|null
      */
-    private ?IMetric $metrics;
+    private $metrics;
 
     public function __construct(string $url, ITransportRest $transport, ?IMetric $metrics = null)
     {
