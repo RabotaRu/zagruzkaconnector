@@ -24,12 +24,16 @@ final class Request implements \JsonSerializable
     /** @var \RabotaRu\ZagruzkaConnector\RestRequest\RequestMessage  */
     private $message;
 
+   /** @var string */
+    private $notifyUrl = "";
+
     public function __construct(
         string $id,
         string $login,
         string $password,
         string $destAddr,
-        RequestMessage $message
+        RequestMessage $message,
+        string $notifyUrl = ""
     ) {
         $this->delivery = new RequestRegisteredDelivery();
         $this->id = $id;
@@ -37,6 +41,7 @@ final class Request implements \JsonSerializable
         $this->password = $password;
         $this->destAddr = $destAddr;
         $this->message = $message;
+        $this->notifyUrl = $notifyUrl;
     }
 
     /**
@@ -192,6 +197,26 @@ final class Request implements \JsonSerializable
     }
 
     /**
+     * @return string
+     */
+    public function getNotifyUrl(): string
+    {
+        return $this->notifyUrl;
+    }
+
+    /**
+     * @param string $notifyUrl
+     *
+     * @return Request
+     */
+    public function setNotifyUrl(string $notifyUrl): Request
+    {
+        $this->notifyUrl = $notifyUrl;
+        return $this;
+    }
+
+
+    /**
      * @return array<string, mixed>
      */
     public function jsonSerialize()
@@ -199,6 +224,9 @@ final class Request implements \JsonSerializable
         $arr = get_object_vars($this);
         if (null === $this->shortenLinks) {
             unset($arr['shortenLinks']);
+        }
+        if ("" === $this->notifyUrl) {
+            unset($arr['notifyUrl']);
         }
         return $arr;
     }

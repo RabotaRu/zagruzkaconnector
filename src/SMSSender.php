@@ -4,12 +4,12 @@ declare(strict_types=1);
 namespace RabotaRu\ZagruzkaConnector;
 
 use Psr\Http\Message\ResponseInterface;
+use RabotaRu\ZagruzkaConnector\Enums\MessageType;
 use RabotaRu\ZagruzkaConnector\HooksInterfaces\RestPostSendHook;
 use RabotaRu\ZagruzkaConnector\HooksInterfaces\RestPreSendHook;
 use RabotaRu\ZagruzkaConnector\RestRequest\Request;
 use RabotaRu\ZagruzkaConnector\RestRequest\RequestMessage;
 use RabotaRu\ZagruzkaConnector\RestRequest\RequestMessageData;
-use RabotaRu\ZagruzkaConnector\RestRequest\RequestMessageType;
 use Ramsey\Uuid\Uuid;
 
 class SMSSender
@@ -18,28 +18,32 @@ class SMSSender
      * @var IRestConnector
      */
     private $connector;
-    /** @var string  */
+    /** @var string */
     private $login;
-    /** @var string  */
+    /** @var string */
     private $password;
-    /** @var string  */
+    /** @var string */
     private $serviceName;
+    /** @var string */
+    private $notifyUrl;
 
-    /** @var \RabotaRu\ZagruzkaConnector\HooksInterfaces\RestPreSendHook|null  */
+    /** @var \RabotaRu\ZagruzkaConnector\HooksInterfaces\RestPreSendHook|null */
     private $preSendHook = null;
-    /** @var \RabotaRu\ZagruzkaConnector\HooksInterfaces\RestPostSendHook|null  */
+    /** @var \RabotaRu\ZagruzkaConnector\HooksInterfaces\RestPostSendHook|null */
     private $postSendHook = null;
 
     public function __construct(
         IRestConnector $connector,
-        string $login,
-        string $password,
-        string $serviceName
+        string         $login,
+        string         $password,
+        string         $serviceName,
+        string         $notifyUrl = ""
     ) {
         $this->connector = $connector;
         $this->login = $login;
         $this->password = $password;
         $this->serviceName = $serviceName;
+        $this->notifyUrl = $notifyUrl;
     }
 
     /**
@@ -65,17 +69,19 @@ class SMSSender
             $this->password,
             $destAddr,
             new RequestMessage(
-                new RequestMessageType(),
+                new MessageType(),
                 new RequestMessageData(
                     $text,
                     $this->serviceName
                 )
-            )
+            ),
+            $this->notifyUrl
         );
     }
 
     /**
      * Send SMS.
+     *
      * @param string $destAddr
      * @param string $text
      *
@@ -88,6 +94,7 @@ class SMSSender
 
     /**
      * Send SMS with custom ID
+     *
      * @param string $id
      * @param string $destAddr
      * @param string $text

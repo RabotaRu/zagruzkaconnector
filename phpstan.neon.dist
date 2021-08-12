@@ -9,10 +9,5 @@ parameters:
     paths:
         - ./src/
         - ./tests/
-    ignoreErrors:
-            -
-                # PHPUnit expects()
-                message: '#Call to an undefined method [a-zA-Z0-9\\_]+::expects\(\)#'
-                paths:
-                    - ./tests/
+
 

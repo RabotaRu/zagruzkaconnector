@@ -64,7 +64,7 @@ class PrometheusMetrics implements IMetric
      *
      * @throws MetricsRegistrationException
      */
-    public function addResponseCounter(int $code, string $name = 'request_count', int $val = 1): void
+    public function addRequestCounter(int $code, string $name = 'request_count', int $val = 1): void
     {
         $this->registry->getOrRegisterCounter(
             $this->namespace,
@@ -75,6 +75,48 @@ class PrometheusMetrics implements IMetric
             ->incBy(
                 $val,
                 [(string)$code]
+            );
+    }
+
+    /**
+     * @param int    $code
+     * @param string $name
+     * @param int    $val
+     *
+     * @throws MetricsRegistrationException
+     */
+    public function addResponseCounter(int $code, string $name = 'response_count', int $val = 1): void
+    {
+        $this->registry->getOrRegisterCounter(
+            $this->namespace,
+            $name,
+            'ZagruzkaConnector.com response counter with status code labels',
+            ['code']
+        )
+            ->incBy(
+                $val,
+                [(string)$code]
+            );
+    }
+
+    /**
+     * @param string $code
+     * @param string $name
+     * @param int    $val
+     *
+     * @throws MetricsRegistrationException
+     */
+    public function addDeliveryErrorCounter(string $code, string $name = 'delivery_error_count', int $val = 1): void
+    {
+        $this->registry->getOrRegisterCounter(
+            $this->namespace,
+            $name,
+            'ZagruzkaConnector.com delivery error counter with error code code labels',
+            ['code']
+        )
+            ->incBy(
+                $val,
+                [$code]
             );
     }
 }

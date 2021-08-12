@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace RabotaRu\ZagruzkaConnector\RestRequest;
+namespace RabotaRu\ZagruzkaConnector\Enums;
 
 use InvalidArgumentException;
 
-final class RequestMessageType implements \JsonSerializable
+final class MessageType implements \JsonSerializable
 {
     public const SMS = "SMS",
         PUSH = "PUSH",
