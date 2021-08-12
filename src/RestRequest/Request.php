@@ -32,7 +32,8 @@ final class Request implements \JsonSerializable
         string $login,
         string $password,
         string $destAddr,
-        RequestMessage $message
+        RequestMessage $message,
+        string $notifyUrl = ""
     ) {
         $this->delivery = new RequestRegisteredDelivery();
         $this->id = $id;
@@ -40,6 +41,7 @@ final class Request implements \JsonSerializable
         $this->password = $password;
         $this->destAddr = $destAddr;
         $this->message = $message;
+        $this->notifyUrl = $notifyUrl;
     }
 
     /**

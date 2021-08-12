@@ -18,26 +18,26 @@ class SMSSender
      * @var IRestConnector
      */
     private $connector;
-    /** @var string  */
+    /** @var string */
     private $login;
-    /** @var string  */
+    /** @var string */
     private $password;
-    /** @var string  */
+    /** @var string */
     private $serviceName;
-    /** @var string  */
+    /** @var string */
     private $notifyUrl;
 
-    /** @var \RabotaRu\ZagruzkaConnector\HooksInterfaces\RestPreSendHook|null  */
+    /** @var \RabotaRu\ZagruzkaConnector\HooksInterfaces\RestPreSendHook|null */
     private $preSendHook = null;
-    /** @var \RabotaRu\ZagruzkaConnector\HooksInterfaces\RestPostSendHook|null  */
+    /** @var \RabotaRu\ZagruzkaConnector\HooksInterfaces\RestPostSendHook|null */
     private $postSendHook = null;
 
     public function __construct(
         IRestConnector $connector,
-        string $login,
-        string $password,
-        string $serviceName,
-        string $notifyUrl = ""
+        string         $login,
+        string         $password,
+        string         $serviceName,
+        string         $notifyUrl = ""
     ) {
         $this->connector = $connector;
         $this->login = $login;
@@ -63,7 +63,7 @@ class SMSSender
      */
     protected function getRequest(string $id, string $destAddr, string $text): Request
     {
-        return (new Request(
+        return new Request(
             $id,
             $this->login,
             $this->password,
@@ -74,12 +74,14 @@ class SMSSender
                     $text,
                     $this->serviceName
                 )
-            )
-        ))->setNotifyUrl($this->notifyUrl);
+            ),
+            $this->notifyUrl
+        );
     }
 
     /**
      * Send SMS.
+     *
      * @param string $destAddr
      * @param string $text
      *
@@ -92,6 +94,7 @@ class SMSSender
 
     /**
      * Send SMS with custom ID
+     *
      * @param string $id
      * @param string $destAddr
      * @param string $text

@@ -40,7 +40,8 @@
         $connector,
         "login",
         "password",
-        "MyService" //то, что будет отображаться как отправитель в СМС
+        "MyService", //то, что будет отображаться как отправитель в СМС
+        "https://myservice.com/callback_for_sms" //сюда будут приходить отчеты о доставке
     ); 
     
     $sender->sendSMS("+79261234567", "Test SMS");
@@ -69,9 +70,20 @@ new Request(
                     $text,
                     $this->serviceName
                 )
-            )
+            ),
+            "https://myservice.com/callback_for_sms"
         );
 ```
+
+## Response
+
+Для того чтобы Response приходил, НЕОБХОДИМО указать notifyUrl в Request. Так же вы можете прописать такой URL в личном кабинете Zagruzka.com.
+
+Можно настроить этот эндпоинт на запись метрик с помощью вашего коннектора - предлагаются три метода на выбор:
+- у вас есть только строка в json: `processResponseByJson`
+- ваш фреймворк вам уже все разобрал в массив: `processResponseByArray`
+- ваш фреймворк вам может все разобрать в объект `RabotaRu\ZagruzkaConnector\RestResponse\Response` библиотеки - тогда воспользуйтесь `processResponse`
+
 
 ## Что еще можно расширять
 

@@ -2,15 +2,19 @@
 
 namespace RabotaRu\ZagruzkaConnector\RestResponse;
 
+use RabotaRu\ZagruzkaConnector\Enums\MessageType;
+
 class Response
 {
+    private const STATUS_NOT_DELIVERY = 5;
+
     /** @var string */
     private $id;
     /** @var string */
     private $mtNum;
     /** @var int */
     private $status;
-    /** @var string */
+    /** @var MessageType */
     private $type;
     /** @var \DateTimeImmutable|null */
     private $doneDate;
@@ -31,13 +35,31 @@ class Response
     /** @var integer */
     private $trafficType;
 
-    public function fillByArray(array $arr): Response
+    /**
+     * @param array<string, string|int> $arr
+     * @throws \Exception
+     */
+    public function __construct(array $arr)
     {
-        $this->id = $arr['id'];
-        $this->mtNum = $arr['mtNum'];
-        $this->status = $arr['status'];
-//        $this->type
-        return $this;
+        $this->id = (string)$arr['id'];
+        $this->mtNum = (string)$arr['mtNum'];
+        $this->status = (int)$arr['status'];
+        $this->type = new MessageType((string)$arr['type']);
+        $this->destAddr = (string)$arr['destAddr'];
+        $this->sourceAddr = (string)$arr['sourceAddr'];
+        $this->text = (string)$arr['text'];
+        $this->partCount = (string)$arr['partCount'];
+        $this->errorCode = (string)$arr['errorCode'];
+        $this->mccMnc = (string)$arr['mccMnc'];
+        $this->trafficType = (int)$arr['trafficType'];
+
+        if (!empty($arr['submitDate'])) {
+            $this->submitDate = new \DateTimeImmutable((string)$arr['submitDate']);
+        }
+
+        if (!empty($arr['doneDate'])) {
+            $this->doneDate = new \DateTimeImmutable((string)$arr['doneDate']);
+        }
     }
 
     /**
@@ -65,25 +87,25 @@ class Response
     }
 
     /**
-     * @return string
+     * @return MessageType
      */
-    public function getType(): string
+    public function getType(): MessageType
     {
         return $this->type;
     }
 
     /**
-     * @return \DateTimeImmutable
+     * @return \DateTimeImmutable|null
      */
-    public function getDoneDate(): \DateTimeImmutable
+    public function getDoneDate(): ?\DateTimeImmutable
     {
         return $this->doneDate;
     }
 
     /**
-     * @return \DateTimeImmutable
+     * @return \DateTimeImmutable|null
      */
-    public function getSubmitDate(): \DateTimeImmutable
+    public function getSubmitDate(): ?\DateTimeImmutable
     {
         return $this->submitDate;
     }
@@ -144,4 +166,11 @@ class Response
         return $this->trafficType;
     }
 
+    /**
+     * @return bool
+     */
+    public function isNotDelivery(): bool
+    {
+        return $this->status == self::STATUS_NOT_DELIVERY;
+    }
 }
