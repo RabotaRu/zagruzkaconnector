@@ -116,7 +116,7 @@ class PrometheusMetrics implements IMetric
         )
             ->incBy(
                 $val,
-                [(string)$code]
+                [$code]
             );
     }
 }
